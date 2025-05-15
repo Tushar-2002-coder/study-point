@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Point for Chemical Engineering Students</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #106a96;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav {
+      background-color: #022232;
+      display: flex;
+      justify-content: center;
+    }
+    nav button {
+      background: none;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    nav button:hover {
+      background-color: #006699;
+    }
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+    select {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  Study Point for Chemical Engineering Diploma Students
+</header>
+
+<nav>
+  <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('about')">About Us</button>
+  <button onclick="showSection('papers')">Question Papers</button>
+  <button onclick="showSection('notes')">Subjects Notes</button>
+  <button onclick="showSection('help')">Help</button>
+</nav>
+
+<div class="content" id="home">
+  <h2>Welcome to the Study Material Portal!</h2>
+  <p>Select a tab above to begin exploring resources for Chemical Engineering diploma students.</p>
+</div>
+
+<div class="content" id="about" style="display:none">
+  <h2>About Us</h2>
+  <p>This website provides study materials, subject notes, and previous year question papers for Chemical Engineering Diploma students. Easily find and view PDFs directly in your browser.</p>
+</div>
+
+<div class="content" id="papers" style="display:none">
+  <h2>Previous Year Question Papers</h2>
+  <select id="year" onchange="loadSubjects('qp')">
+    <option value="">Select Year</option>
+    <option value="ALL">All Question Papers</option>
+  </select>
+
+  <select id="subject" onchange="showPDF('qp')" style="display:none"></select>
+</div>
+
+<div class="content" id="notes" style="display:none">
+  <h2>Subject-wise Notes</h2>
+  <select id="noteSubject" onchange="showPDF('notes')">
+    <option value="">Select Subject</option>
+    <option value="https://drive.google.com/file/d/1H08aLGsZiMyXnOoFt4AL88cP6uGWrGQy/preview">Plant Safety Management</option>
+    <option value="https://drive.google.com/file/d/1zzmJl1eC5UZvYkvUbq8st16PpEfI7Kfl/preview">Chemical Reaction Engg.</option>
+    <option value="https://drive.google.com/file/d/1Fw8xQNfCqny0ovymePzaylVGw5GhKsj-/preview">Petrochemical</option>
+    <option value="https://drive.google.com/file/d/1du0TjsamyJGdtpRUiexEJ8hae8LnK3pD/preview">Nobel Separation Technology</option>
+  </select>
+</div>
+
+<div class="content" id="help" style="display:none">
+  <h2>Help</h2>
+  <p>If you need assistance, contact us at <strong>tusharsharma89372@gmail.com</strong>.</p>
+</div>
+
+<script>
+  const qpLinks = {
+    "ALL": {
+      "Plant Safety Management": "https://drive.google.com/file/d/1aCkmhb1QNhVmnYy3FgDKRYQp_LCaNuFH/preview",
+      "Chemical Reaction Engieneering": "https://drive.google.com/file/d/1_rz5xbswmwU_xSPHazE75n2KBfymp_CN/preview",
+      "PetroChemical Industries": "https://drive.google.com/file/d/1oQhdFRq2Oyu7YBd9AzVu4_26phx7ZAyN/preview",
+      "Nobel Separation Process": "https://drive.google.com/file/d/1BXG4DDqQTMyhB0QUeMpWD1eNApMfNp2Y/preview"
+    }
+  };
+
+  function showSection(section) {
+    document.querySelectorAll('.content').forEach(div => div.style.display = 'none');
+    document.getElementById(section).style.display = 'block';
+  }
+
+  function loadSubjects(type) {
+    const year = document.getElementById('year').value;
+    const subjectSelect = document.getElementById('subject');
+    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+
+    if (qpLinks[year]) {
+      for (const subject in qpLinks[year]) {
+        const opt = document.createElement('option');
+        opt.value = qpLinks[year][subject];
+        opt.text = subject;
+        subjectSelect.appendChild(opt);
+      }
+      subjectSelect.style.display = 'inline-block';
+    } else {
+      subjectSelect.style.display = 'none';
+    }
+  }
+
+  function showPDF(type) {
+    const link = type === 'qp' ? document.getElementById('subject').value : document.getElementById('noteSubject').value;
+    if (link) {
+      window.open(link, '_blank');
+    }
+  }
+</script>
+
+</body>
+</html>
